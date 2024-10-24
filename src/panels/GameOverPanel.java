@@ -1,20 +1,10 @@
 package panels;
 
 import game.GameWindow;
+import javax.swing.*;
 import utils.ProportionalLayout;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class GameOverPanel extends BasePanel {
-
-
-    // example where you can init buttons to acces them in whole class
-    // private JButton startButton;
-    // private JButton exitButton;
-
-
-    // private GameWindow gameWindow;
 
     public GameOverPanel(GameWindow gameWindow) {
         super(gameWindow);

@@ -36,7 +36,7 @@ public class StartPanel extends BasePanel {
     
         
 
-        // Add buttons with explicit position and size based on the base resolution (800x450)
+        // Add buttons with explicit position and size
         add(startButton, new ProportionalLayout.Constraints(640, 210, 640, 200)); 
         add(optionsButton, new ProportionalLayout.Constraints(640, 430, 640, 200)); 
         add(exitButton, new ProportionalLayout.Constraints(640, 650, 640, 200));  

@@ -37,7 +37,7 @@ public class OptionsPanel extends BasePanel {
         option3.addActionListener(e -> gameWindow.showGameOverPanel());
         
 
-        // Add buttons with explicit position and size based on the base resolution (800x450)
+        // Add buttons with explicit position and size
         add(option1, new ProportionalLayout.Constraints(640, 210, 640, 200)); 
         add(option2, new ProportionalLayout.Constraints(640, 430, 640, 200)); 
         add(option3, new ProportionalLayout.Constraints(640, 650, 640, 200));  

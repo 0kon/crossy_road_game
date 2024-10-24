@@ -1,20 +1,16 @@
 package panels;
 
-
+import game.GameLoop;
+import game.GameWindow;
 import java.awt.*;
 import javax.swing.*;
-
-import game.GameWindow;
 import utils.ProportionalLayout;
-import game.GameLoop;
-import game.GameState;
-
 
 
 public class GamePanel extends BasePanel {
 
     private GameLoop gameLoop;
-    private GameState gameState;
+
     private GameWindow gameWindow;
 
     public GamePanel(GameWindow gameWindow) {
@@ -24,9 +20,6 @@ public class GamePanel extends BasePanel {
         gameLoop = new GameLoop(this);
 
         drawContent();
-
-        
-
     }
 
     @Override
@@ -35,8 +28,6 @@ public class GamePanel extends BasePanel {
         // JButton startButton = new JButton("Start Game");
         JLabel label = new JLabel("start", JLabel.CENTER);
 
-
-        
         // Set font color (foreground) for better contrast
         label.setForeground(Color.BLACK);
 
@@ -44,7 +35,6 @@ public class GamePanel extends BasePanel {
         label.setBackground(Color.YELLOW);
         
 
-        // Add buttons with explicit position and size based on the base resolution (800x450)
         // add(startButton, new ProportionalLayout.Constraints(640, 210, 640, 200)); 
         // add(optionsButton, new ProportionalLayout.Constraints(640, 430, 640, 200)); 
         add(label, new ProportionalLayout.Constraints(640, 200, 640, 640));  
@@ -53,7 +43,6 @@ public class GamePanel extends BasePanel {
     // Start the game
     public void startGame() {
         gameLoop.start();  // Start the game loop
-        gameState = GameState.IN_PLAY;
     }
 
 

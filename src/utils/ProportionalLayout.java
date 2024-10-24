@@ -1,9 +1,10 @@
 package utils;
 
 import java.awt.*;
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.*;
+
 
 public class ProportionalLayout implements LayoutManager2 {
     private final double aspectRatio;  // Target aspect ratio (e.g., 16.0 / 9.0)
@@ -13,7 +14,10 @@ public class ProportionalLayout implements LayoutManager2 {
 
     // Constraints class to hold position and size relative to the original resolution
     public static class Constraints {
-        public final int x, y, width, height;  // Absolute positions and size in base resolution pixels
+        public final int x;
+        public final int y;
+        public final int width;
+        public final int height;  
         public final float baseFontSize;
 
 
