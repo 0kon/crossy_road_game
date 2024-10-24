@@ -14,10 +14,12 @@ public class GameOverPanel extends BasePanel {
     // private JButton exitButton;
 
 
-    private GameWindow gameWindow;
+    // private GameWindow gameWindow;
 
     public GameOverPanel(GameWindow gameWindow) {
-        this.gameWindow = gameWindow;
+        super(gameWindow);
+        // this.gameWindow = gameWindow;
+        
 
         drawContent();
 

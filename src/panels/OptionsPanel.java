@@ -17,6 +17,7 @@ public class OptionsPanel extends BasePanel {
     private GameWindow gameWindow;
 
     public OptionsPanel(GameWindow gameWindow) {
+        super(gameWindow);
         this.gameWindow = gameWindow;
 
         drawContent();

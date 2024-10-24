@@ -7,15 +7,18 @@ import javax.swing.*;
 import game.GameWindow;
 import utils.ProportionalLayout;
 import game.GameLoop;
+import game.GameState;
+
 
 
 public class GamePanel extends BasePanel {
 
     private GameLoop gameLoop;
-
+    private GameState gameState;
     private GameWindow gameWindow;
 
     public GamePanel(GameWindow gameWindow) {
+        super(gameWindow);
         this.gameWindow = gameWindow;
         // this.basePanel = basePanel;
         gameLoop = new GameLoop(this);
@@ -50,6 +53,7 @@ public class GamePanel extends BasePanel {
     // Start the game
     public void startGame() {
         gameLoop.start();  // Start the game loop
+        gameState = GameState.IN_PLAY;
     }
 
 

@@ -1,10 +1,9 @@
 package game;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-
 import panels.BasePanel;
 import panels.GameOverPanel;
 import panels.GamePanel;
@@ -14,8 +13,7 @@ import panels.StartPanel;
 
 
 public class GameWindow extends JFrame {
-
-
+    private GameState gameState = GameState.MENU;
     private StartPanel startPanel;
     private GamePanel gamePanel;
     private OptionsPanel optionsPanel;
@@ -29,9 +27,6 @@ public class GameWindow extends JFrame {
     public GameWindow() {
         setTitle("Game Window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // gamePanel = new BasePanel();
-        // setContentPane(gamePanel);
 
         // Set initial window size
         setSize(720, 480);
@@ -47,11 +42,14 @@ public class GameWindow extends JFrame {
         gameOverPanel = new GameOverPanel(this);
 
         // Show the start panel initially
-
         showStartPanel();
 
-
-        setupKeyBindings();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                handleKeyPress(e);
+            }
+        });
 
 
         // Set focus to allow key input
@@ -70,20 +68,54 @@ public class GameWindow extends JFrame {
         repaint();
     }
 
-    private void setupKeyBindings() {
-        // Get the input map for the root pane (so the binding works globally within the frame)
-        JRootPane rootPane = this.getRootPane();
-        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = rootPane.getActionMap();
 
-        // Bind F11 key to toggle full-screen action
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), "toggleFullScreen");
-        actionMap.put("toggleFullScreen", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toggleFullScreen();
-            }
-        });
+    // Method to handle all key presses
+    private void handleKeyPress(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        // F11 to toggle fullscreen - Always
+        if (key == KeyEvent.VK_F11) {
+            toggleFullScreen();
+        }
+
+        // Handle arrow keys if game is IN_PLAY
+        if (gameState == GameState.IN_PLAY) {
+            handleArrowKeyPress(key);
+        }
+    }
+
+    // Method to handle arrow key inputs
+    private void handleArrowKeyPress(int key) {
+        switch (key) {
+            case KeyEvent.VK_LEFT:
+                moveLeft();
+                break;
+            case KeyEvent.VK_RIGHT:
+                moveRight();
+                break;
+            case KeyEvent.VK_UP:
+                moveUp();
+                break;
+            case KeyEvent.VK_DOWN:
+                moveDown();
+                break;
+        }
+    }
+       
+    private void moveLeft() {
+        System.out.println("Move Left");
+    }
+
+    private void moveRight() {
+        System.out.println("Move Right");
+    }
+
+    private void moveUp() {
+        System.out.println("Move Up");   
+    }
+
+    private void moveDown() {
+        System.out.println("Move Down");
     }
 
     // Method to toggle between full screen (borderless) and normal windowed mode
@@ -108,6 +140,7 @@ public class GameWindow extends JFrame {
     // Show the game panel (called when the game starts)
     public void showGamePanel() {
         setCurrentPanel(gamePanel);
+        gameState = GameState.IN_PLAY;
         gamePanel.startGame(); // Start the game logic
     }
 

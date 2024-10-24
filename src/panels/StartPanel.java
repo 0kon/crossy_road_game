@@ -13,6 +13,7 @@ public class StartPanel extends BasePanel {
     private GameWindow gameWindow;
 
     public StartPanel(GameWindow gameWindow) {
+        super(gameWindow);
         this.gameWindow = gameWindow;
 
         drawContent();
