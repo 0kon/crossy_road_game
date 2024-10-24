@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+
+import panels.BasePanel;
 import panels.GameOverPanel;
 import panels.GamePanel;
 import panels.OptionsPanel;

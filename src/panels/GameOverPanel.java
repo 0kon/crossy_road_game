@@ -1,8 +1,7 @@
 package panels;
 
-import game.BasePanel;
 import game.GameWindow;
-import game.ProportionalLayout;
+import utils.ProportionalLayout;
 
 import javax.swing.*;
 import java.awt.*;

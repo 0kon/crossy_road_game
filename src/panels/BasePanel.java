@@ -1,6 +1,9 @@
-package game;
+package panels;
 
 import javax.swing.*;
+
+import utils.ProportionalLayout;
+
 import java.awt.*;
 
 public abstract class BasePanel extends JPanel {
