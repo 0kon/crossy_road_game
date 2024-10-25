@@ -8,7 +8,7 @@ public class Game {
     public Game() {
 
         
-        player = new Player(0, 0); 
+        player = new Player(0, 128); 
 
     }
 

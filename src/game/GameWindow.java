@@ -29,7 +29,7 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set initial window size
-        setSize(1296, 759);
+        setSize(1279, 719);
         setLocationRelativeTo(null); // Center the window
 
         // Enable resizing
