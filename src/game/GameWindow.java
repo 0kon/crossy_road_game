@@ -29,7 +29,7 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set initial window size
-        setSize(720, 480);
+        setSize(1296, 759);
         setLocationRelativeTo(null); // Center the window
 
         // Enable resizing
@@ -43,17 +43,16 @@ public class GameWindow extends JFrame {
 
         // Show the start panel initially
         showStartPanel();
+        System.out.println(gameState);
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                handleKeyPress(e);
-            }
-        });
+        addKeyListener(new KeyHandler(this));
 
 
         // Set focus to allow key input
+        
         setFocusable(true);
+        requestFocusInWindow();  // Ensure window is focused for key events
+        
         requestFocusInWindow();
     }
 
@@ -64,62 +63,15 @@ public class GameWindow extends JFrame {
         }
         currentPanel = panel;
         setContentPane(currentPanel);
+        
         revalidate();
+        requestFocusInWindow();  // Make sure focus returns to the window after switching panels
+    
         repaint();
     }
 
-
-    // Method to handle all key presses
-    private void handleKeyPress(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        // F11 to toggle fullscreen - Always
-        if (key == KeyEvent.VK_F11) {
-            toggleFullScreen();
-        }
-
-        // Handle arrow keys if game is IN_PLAY
-        if (gameState == GameState.IN_PLAY) {
-            handleArrowKeyPress(key);
-        }
-    }
-
-    // Method to handle arrow key inputs
-    private void handleArrowKeyPress(int key) {
-        switch (key) {
-            case KeyEvent.VK_LEFT:
-                moveLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-                moveRight();
-                break;
-            case KeyEvent.VK_UP:
-                moveUp();
-                break;
-            case KeyEvent.VK_DOWN:
-                moveDown();
-                break;
-        }
-    }
-       
-    private void moveLeft() {
-        System.out.println("Move Left");
-    }
-
-    private void moveRight() {
-        System.out.println("Move Right");
-    }
-
-    private void moveUp() {
-        System.out.println("Move Up");   
-    }
-
-    private void moveDown() {
-        System.out.println("Move Down");
-    }
-
     // Method to toggle between full screen (borderless) and normal windowed mode
-    private void toggleFullScreen() {
+    public void toggleFullScreen() {
         if (!isFullscreen) {
             // Enter full-screen borderless mode
             windowedBounds = getBounds(); // Store the current windowed size and position
@@ -146,16 +98,27 @@ public class GameWindow extends JFrame {
 
     // Show the game over panel
     public void showGameOverPanel() {
+        gameState = GameState.GAME_OVER;
         setCurrentPanel(gameOverPanel);
     }
 
     // // Show the start panel
     public void showStartPanel() {
+        gameState = GameState.MENU;
         setCurrentPanel(startPanel);
     }
 
     public void showOptionsPanel() {
+        gameState = GameState.OPTIONS;
         setCurrentPanel(optionsPanel);
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
     
 

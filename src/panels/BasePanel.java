@@ -10,12 +10,18 @@ public abstract class BasePanel extends JPanel {
 
     protected final double aspectRatio = 16.0 / 9.0;
     private GameWindow gameWindow;
+    protected int baseWidth  = 1920;
+    protected int baseHeight = 1080;
+    protected int xOffset;
+    protected int yOffset;
+    protected int gameWidth;
+    protected int gameHeight;
 
     public BasePanel(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
         
         // Set the custom layout manager with the aspect ratio
-        setLayout(new ProportionalLayout(aspectRatio, 1920, 1080));
+        setLayout(new ProportionalLayout(aspectRatio, baseWidth, baseHeight));
 
     }
 
