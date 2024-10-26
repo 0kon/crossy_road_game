@@ -28,12 +28,12 @@ public class Player {
             frameCounter -= 1;
             speed = sequence[frameCounter];
 
-            if (movingUp) {
-                y -= speed;
-            }
-            if (movingDown) {
-                y += speed;
-            }
+            // if (movingUp) {
+            //     y -= speed;
+            // }
+            // if (movingDown) {
+            //     y += speed;
+            // }
             if (movingLeft) {
                 x -= speed;
             }
