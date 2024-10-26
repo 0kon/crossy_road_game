@@ -4,17 +4,14 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-public class Obstacle{
+public class Obstacle {
     private int x;
     private int y;
     private int size = 128;
-    private int speed = 128;
-    private boolean movingUp;
+    private int speed;
     private boolean movingDown;
-    private boolean movingLeft;
-    private boolean movingRight;
-    private boolean isAnimating = false; // New flag to track animation status
- 
+    private boolean isAnimating = false;
+
     private int frameCounter = 0;
     private final int[] sequence = {1, 2, 4, 6, 9, 12, 18, 22, 18, 13, 10, 6, 4, 2, 1};
 
@@ -31,81 +28,43 @@ public class Obstacle{
         return y;
     }
 
+    public boolean isAnimating() {
+        return isAnimating;
+    }
+
     public void update() {
         if (isAnimating && frameCounter > 0) {
             frameCounter -= 1;
-            speed = sequence[frameCounter];
+            speed = sequence[15 - frameCounter - 1]; // Access speed from animation sequence
 
-            if (movingUp) {
-                y += speed;
-            }
             if (movingDown) {
-                y -= speed;
+                y += speed; // Move down
             }
-            // if (movingLeft) {
-            //     x -= speed;
-            // }
-            // if (movingRight) {
-            //     x += speed;
-            // }
-        }
-
-        // Ensure the object stays within bounds
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 0) {
-            y = 0;
-        }
-        if (x >= 1920 - size) {
-            x = 1920 - size;
-        }
-        if (y >= 1024) {
-            y = 1024;
         }
 
         // Snap to nearest multiple of 128 when animation stops
         if (frameCounter == 0 && isAnimating) {
             isAnimating = false;
-            x = ((x + 64) / 128) * 128;
-            y = ((y + 64) / 128) * 128;
-            resetMovementFlags();
+            y = ((y + 64) / 128) * 128; // Snap to grid
+            movingDown = false;         // Reset moving flag
         }
     }
 
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
         g.setColor(Color.RED);
         g.fillRect((int) (x * scale) + xOffset, (int) (y * scale) + yOffset,
-                (int) ((size * scale)+1), (int) ((size * scale)+1));
+                (int) ((size * scale) + 1), (int) ((size * scale) + 1));
     }
 
     public void keyPressed(int keyCode) {
-        if (!isAnimating) {
-            if (keyCode == KeyEvent.VK_UP) {
-                movingUp = true;
-            } else if (keyCode == KeyEvent.VK_DOWN) {
-                movingDown = true;
-            } else if (keyCode == KeyEvent.VK_LEFT) {
-                movingLeft = true;
-            } else if (keyCode == KeyEvent.VK_RIGHT) {
-                movingRight = true;
-            }
-            if (movingUp || movingDown || movingLeft || movingRight) {
-                isAnimating = true;
-                frameCounter = 15;
-            }
+        if (!isAnimating && keyCode == KeyEvent.VK_UP) {
+            movingDown = true;          // Set downward movement flag
+            isAnimating = true;
+            frameCounter = 15;          // Start animation
         }
     }
 
     public void keyReleased(int keyCode) {
-        // Ignore key releases while animating to ensure animation finishes
-    }
-
-    // Helper method to reset movement flags
-    private void resetMovementFlags() {
-        movingUp = false;
-        movingDown = false;
-        movingLeft = false;
-        movingRight = false;
+        // No need to handle key release, animation continues until complete
     }
 }
