@@ -70,7 +70,7 @@ public class Obstacle {
         }
     }
 
-    public void keyReleased(int keyCode) {
-        // No need to handle key release, animation continues until complete
-    }
+    // public void keyReleased(int keyCode) {
+    //     // No need to handle key release, animation continues until complete
+    // }
 }

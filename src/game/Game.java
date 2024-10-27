@@ -14,9 +14,6 @@ import java.awt.Rectangle;
 public class Game {
     private Player player;
     private List<Obstacle> obstacles;
-    // private int fieldEndX;
-    // private int screenHeight;
-    private int rowHeight = 128;      // Height of each row for obstacle placement
     private Random random;
     private boolean rowGenerated = false;
     private int currentPathStartColumn; // Track the start of the clear path for continuity
@@ -27,13 +24,11 @@ public class Game {
     public Game() {
         player = new Player(896, 640);
         obstacles = new ArrayList<>();
-        // fieldEndX = 1920;
-        // screenHeight = 1080;
         random = new Random();
         currentPathStartColumn = random.nextInt(14 - pathWidth)+1;
-        pathWidth = 3;              // Initial path width
+        pathWidth = 3;         
         score = 0;  
-         // Initial path position
+
     }
 
     public void update() {
@@ -54,13 +49,8 @@ public class Game {
         // Check if all obstacles have finished animating
         if (rowGenerated && allObstaclesFinishedAnimating()) {
             spawnObstacles();
-            rowGenerated = false; // Reset to allow UP key to trigger again
+            rowGenerated = false; // Set to false to allow UP key to trigger again
         }
-        if (checkCollision()) {
-            System.out.println("coli");
-        }
-
-        
     }
 
 
@@ -82,7 +72,8 @@ public class Game {
         System.out.println(score);
         // Adjust current path start to slightly move left, right, or stay the same within bounds
         int direction = random.nextInt(3) - 1; // -1 (left), 0 (same), 1 (right)
-        currentPathStartColumn = Math.max(1, Math.min(currentPathStartColumn + direction, 14 - pathWidth));
+        currentPathStartColumn = Math.max(1, 
+            Math.min(currentPathStartColumn + direction, 14 - pathWidth));
     
         // Reserve the columns for the clear path
         Set<Integer> pathColumns = new HashSet<>();
@@ -94,12 +85,16 @@ public class Game {
         for (int col = 0; col < 15; col++) {
             if (!pathColumns.contains(col)) {
                 int obstacleX = col * 128;
-                Obstacle newObstacle = new Obstacle(obstacleX, -128); // Place obstacles above the screen
+                // Place obstacles above the screen
+                Obstacle newObstacle = new Obstacle(obstacleX, -128); 
                 obstacles.add(newObstacle);
             }
         }
     }
-
+    /**
+     * Checks if the player collides with an obstacle.
+     * @return true if the player collides with the obstacle, false otherwise
+     */
     public boolean checkCollision() {
         Rectangle playerBounds = player.getBounds();
 
@@ -109,7 +104,7 @@ public class Game {
                 return true; 
             }
         }
-        return false; // No collision
+        return false; 
     }
 
     
@@ -147,10 +142,10 @@ public class Game {
         
     }
 
-    public void handleKeyRelease(int keyCode) {
-        player.keyReleased(keyCode);
-        for (Obstacle obstacle : obstacles) {
-            obstacle.keyReleased(keyCode);
-        }
-    }
+    // public void handleKeyRelease(int keyCode) {
+    //     player.keyReleased(keyCode);
+    //     for (Obstacle obstacle : obstacles) {
+    //         obstacle.keyReleased(keyCode);
+    //     }
+    // }
 }
