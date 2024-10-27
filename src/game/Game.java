@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.awt.Rectangle;
 
 
 public class Game {
@@ -19,7 +19,6 @@ public class Game {
     private int currentPathStartColumn; // Track the start of the clear path for continuity
     private int pathWidth;               // Width of the clear path, which will vary
     private int score; 
-    private boolean playerMoved = false;
 
     public Game() {
         player = new Player(896, 640);

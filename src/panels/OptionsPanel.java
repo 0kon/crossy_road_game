@@ -1,9 +1,9 @@
 package panels;
 
 import game.GameWindow;
+import javax.swing.*;
 import utils.ProportionalLayout;
 
-import javax.swing.*;
 
 
 public class OptionsPanel extends BasePanel {

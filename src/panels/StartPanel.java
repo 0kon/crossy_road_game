@@ -1,10 +1,8 @@
 package panels;
 
 import game.GameWindow;
-import utils.ProportionalLayout;
-
 import javax.swing.*;
-import java.awt.*;
+import utils.ProportionalLayout;
 
 public class StartPanel extends BasePanel {
 

@@ -40,25 +40,4 @@ public class KeyHandler extends KeyAdapter {
             }
         }
     }
-
-    // @Override
-    // public void keyReleased(KeyEvent e) {
-    //     int key = e.getKeyCode();
-
-    //     // Handle arrow key releases during the game
-    //     if (gameWindow.getGameState() == GameState.IN_PLAY) {
-    //         switch (key) {
-    //             case KeyEvent.VK_UP:
-    //             case KeyEvent.VK_DOWN:
-    //             case KeyEvent.VK_LEFT:
-    //             case KeyEvent.VK_RIGHT:
-    //                 // Pass arrow key release to the game logic
-    //                 System.out.println("Arrow key released: " + key);
-    //                 gameWindow.getGamePanel().getGame().handleKeyRelease(key);
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    // }
 }

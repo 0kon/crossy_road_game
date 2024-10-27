@@ -1,14 +1,11 @@
 package panels;
 
-import game.GameWindow;
-import utils.ProportionalLayout;
-import game.Game;
 
+import game.Game;
+import game.GameWindow;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 import utils.ProportionalLayout;
 

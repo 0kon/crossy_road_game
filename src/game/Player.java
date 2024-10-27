@@ -19,10 +19,9 @@ public class Player {
     private boolean isAnimating = false; // Flag to track animation status
  
     private int frameCounter = 0;
-     // Sequence of speeds for animation
 
-    private final int[] sequence = {1, 2, 4, 6, 9, 12, 18, 22, 18, 13, 10, 6, 4, 2, 1}; 
     // Sequence of speeds for animation
+    private final int[] sequence = {1, 2, 4, 6, 9, 12, 18, 22, 18, 13, 10, 6, 4, 2, 1}; 
 
     public Player(int startX, int startY) {
         this.x = startX;
@@ -96,9 +95,6 @@ public class Player {
         }
     }
 
-    // public void keyReleased(int keyCode) {
-    //     // No need to handle key release, animation continues until complete
-    // }
 
     // Helper method to reset movement flags
     private void resetMovementFlags() {

@@ -1,9 +1,9 @@
 package game;
 
-import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
+import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 
 public class Obstacle {
     private int x;
@@ -69,8 +69,4 @@ public class Obstacle {
             frameCounter = 15;          // Start animation
         }
     }
-
-    // public void keyReleased(int keyCode) {
-    //     // No need to handle key release, animation continues until complete
-    // }
 }
