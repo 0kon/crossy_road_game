@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 
-
+/**
+ * 
+ */
 public class ProportionalLayout implements LayoutManager2 {
     private final double aspectRatio;  // Target aspect ratio
     private final Map<Component, Constraints> constraintsMap = new HashMap<>();
     private int baseWidth = 1920;  // Original base width of the game area
     private int baseHeight = 1080;  // Original base height of the game area
 
-    // Constraints class to hold position and size relative to the original resolution
+    /** 
+     * Constraints class to hold position and size relative to the original resolution.
+     * */ 
     public static class Constraints {
         public final int x;
         public final int y;
@@ -21,12 +25,25 @@ public class ProportionalLayout implements LayoutManager2 {
         public final float baseFontSize;
 
 
-        // Constructor for default values
+        /**
+         * Constructor for constraints without baseFontSize.
+         * @param x locationof of component on x axis
+         * @param y location of of component on y axis
+         * @param width width of component
+         * @param height height of component
+         */
         public Constraints(int x, int y, int width, int height) {
             this(x, y, width, height, 40f);
         }
 
-        // Constructor for constraints with baseFontSize
+        /**
+         * Constructor for constraints with baseFontSize.
+         * @param x locationof of component on x axis
+         * @param y location of of component on y axis
+         * @param width width of component
+         * @param height height of component
+         * @param baseFontSize base font size of component
+         */
         public Constraints(int x, int y, int width, int height, float baseFontSize) {
             this.baseFontSize = baseFontSize;
             this.x = x;
@@ -37,7 +54,13 @@ public class ProportionalLayout implements LayoutManager2 {
 
         
     }
-
+    
+    /**
+     * Initializes a layout.
+     * @param aspectRatio Orginal aspect ratio
+     * @param baseWidth Original base width of the game area
+     * @param baseHeight Original base height of the game area
+     */
     public ProportionalLayout(double aspectRatio, int baseWidth, int baseHeight) {
         this.baseWidth = baseWidth; 
         this.baseHeight = baseHeight; 
