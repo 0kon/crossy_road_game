@@ -7,7 +7,7 @@ import javax.swing.*;
 
 
 public class ProportionalLayout implements LayoutManager2 {
-    private final double aspectRatio;  // Target aspect ratio (e.g., 16.0 / 9.0)
+    private final double aspectRatio;  // Target aspect ratio
     private final Map<Component, Constraints> constraintsMap = new HashMap<>();
     private int baseWidth = 1920;  // Original base width of the game area
     private int baseHeight = 1080;  // Original base height of the game area
@@ -45,9 +45,9 @@ public class ProportionalLayout implements LayoutManager2 {
     }
 
     @Override
-    public void addLayoutComponent(Component comp, Object constraints) {
+    public void addLayoutComponent(Component component, Object constraints) {
         if (constraints instanceof Constraints) {
-            constraintsMap.put(comp, (Constraints) constraints);
+            constraintsMap.put(component, (Constraints) constraints);
         } 
     }
 
@@ -73,53 +73,56 @@ public class ProportionalLayout implements LayoutManager2 {
         double containerAspectRatio = (double) containerWidth / containerHeight;
 
         // Calculate scaled dimensions while keeping aspect ratio
-        int scaledWidth, scaledHeight;
+        int scaledWidth;
+        int scaledHeight;
         if (containerAspectRatio > aspectRatio) {
-            // The window is wider than the game area, so use height as the limiting factor
+            // The window is wider than the game area
             scaledHeight = containerHeight;
             scaledWidth = (int) (scaledHeight * aspectRatio);
         } else {
-            // The window is taller than the game area, so use width as the limiting factor
+            // The window is taller than the game area
             scaledWidth = containerWidth;
             scaledHeight = (int) (scaledWidth / aspectRatio);
         }
 
-        // Calculate offsets for letterboxing (if needed)
+        // Calculate offsets for letterboxing
         int xOffset = (containerWidth - scaledWidth) / 2;
         int yOffset = (containerHeight - scaledHeight) / 2;
 
         // Layout each component with scaled sizes and positions
-        for (Component comp : parent.getComponents()) {
-            Constraints constraints = constraintsMap.get(comp);
+        for (Component component : parent.getComponents()) {
+            Constraints constraints = constraintsMap.get(component);
             if (constraints == null) {
-                continue;  // Skip components with no constraints
+                continue; 
             }
 
-            // Scale the positions and sizes relative to the base resolution (e.g., 800x450)
+            // Scale the positions and sizes
             int scaledX = (int) (constraints.x * ((double) scaledWidth / baseWidth));
             int scaledY = (int) (constraints.y * ((double) scaledHeight / baseHeight));
-            int scaledComponentWidth = (int) (constraints.width * ((double) scaledWidth / baseWidth));
-            int scaledComponentHeight = (int) (constraints.height * ((double) scaledHeight / baseHeight));
+            int scaledComponentWidth = (int) (constraints.width 
+                * ((double) scaledWidth / baseWidth));
+            int scaledComponentHeight = (int) (constraints.height 
+                * ((double) scaledHeight / baseHeight));
 
-            // Set the bounds for the component, considering offsets and letterboxing
-            comp.setBounds(xOffset + scaledX, yOffset + scaledY, scaledComponentWidth, scaledComponentHeight);
+            // Set the bounds for the component
+            component.setBounds(xOffset + scaledX, yOffset + scaledY,
+                 scaledComponentWidth, scaledComponentHeight);
 
-            // Optionally: update font size for buttons or labels based on scaling
-            if (comp instanceof JLabel || comp instanceof JButton || comp instanceof JTextField) {
-                Font currentFont = comp.getFont();
+            // Update font size for buttons or labels based on scaling
+            if (component instanceof JLabel || component instanceof JButton 
+                || component instanceof JTextField) {
+                Font currentFont = component.getFont();
                 float scaledFontSize = constraints.baseFontSize * ((float) scaledWidth / baseWidth);
-                comp.setFont(currentFont.deriveFont(scaledFontSize));
+                component.setFont(currentFont.deriveFont(scaledFontSize));
             }
             
         }
     }
 
+    
     @Override
-    public void addLayoutComponent(String name, Component comp) {}
-
-    @Override
-    public void removeLayoutComponent(Component comp) {
-        constraintsMap.remove(comp);
+    public void removeLayoutComponent(Component component) {
+        constraintsMap.remove(component);
     }
 
     @Override
@@ -133,5 +136,9 @@ public class ProportionalLayout implements LayoutManager2 {
     }
 
     @Override
+    public void addLayoutComponent(String name, Component component) {}
+
+    @Override
     public void invalidateLayout(Container target) {}
 }
+    
