@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import utils.ProportionalLayout;
 
+/**
+ * The panel displayed while playing a game. It also handels game loop.
+ */
 public class GamePanel extends BasePanel implements ActionListener {
     private Game game;
     private GameWindow gameWindow;
@@ -86,7 +89,10 @@ public class GamePanel extends BasePanel implements ActionListener {
 
     
 
-
+    /**
+     * Changes the countdown time depending on the difficulty.
+     * @param difficulty difficulity as a number from 1 to 3
+     */
     public void changeDifficulty(int difficulty) {   
         
         switch (difficulty) {
@@ -108,30 +114,25 @@ public class GamePanel extends BasePanel implements ActionListener {
     }
 
 
-    // ActionListener method: called every frame by the Timer
+    /**
+     * Method called every frame by the Timer.
+     */
     public void actionPerformed(ActionEvent e) {
-        game.update(); // Update game logic
+        game.update(); 
         
-
-
         if (game.isGameOver()) {
             gameWindow.showGameOverPanel(game.getScore());
-            endGame();; // Stop the game loop
+            endGame(); 
             return;
         }
-        // Check if the score has changed
+
         int currentScore = game.getScore();
 
-
-
         if (currentScore != lastScore) {
-            lastScore = currentScore; // Update lastScore
-            scoreLabel.setText("Score: " + currentScore); // Update the score display
-        } // Refresh layout if needed
-        
-        
-    
-        repaint(); // Redraw the game
+            lastScore = currentScore; 
+            scoreLabel.setText("Score: " + currentScore); 
+        } 
+        repaint(); 
     }
 
     // Paint method: handles drawing the game
@@ -156,6 +157,9 @@ public class GamePanel extends BasePanel implements ActionListener {
 
     }
 
+    /**
+     * Used to start the game.
+     */
     public void startGame() {
         initializeComponents();
         gameTimer.start();

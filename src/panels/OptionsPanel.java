@@ -18,6 +18,10 @@ public class OptionsPanel extends BasePanel {
 
     private GameWindow gameWindow;
 
+    /**
+     * Draws content and letterbox.
+     * @param gameWindow gameWindow class
+     */
     public OptionsPanel(GameWindow gameWindow) {
         super(gameWindow);
         this.gameWindow = gameWindow;

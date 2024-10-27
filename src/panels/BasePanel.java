@@ -6,7 +6,7 @@ import javax.swing.*;
 import utils.ProportionalLayout;
 
 /**
- * 
+ * A class that serves as a template for other panels."
  */
 public abstract class BasePanel extends JPanel {
 
@@ -20,7 +20,7 @@ public abstract class BasePanel extends JPanel {
     protected int gameHeight;
 
     /**
-     *  Sets layout for other panels and creates letterbox.
+     *  Sets layout for other panels and creates letterbox. 
      * @param gameWindow GameWindow class
      */
     public BasePanel(GameWindow gameWindow) {
