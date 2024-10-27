@@ -6,7 +6,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 /**
- * 
+ * The Player class represents a player in the game.
+ * It handles the player's position, movement, and rendering.
  */
 public class Player {
     private int x;
@@ -16,12 +17,19 @@ public class Player {
     private boolean movingUp;
     private boolean movingLeft;
     private boolean movingRight;
-    private boolean isAnimating = false; // Flag to track animation status
+    private boolean isAnimating = false; 
+    // Flag to track animation status
  
     private int frameCounter = 0;
 
     // Sequence of speeds for animation
     private final int[] sequence = {1, 2, 4, 6, 9, 12, 18, 22, 18, 13, 10, 6, 4, 2, 1}; 
+
+    /**
+     * Constructs a new Player object with the specified starting position.
+     * @param startX the starting x-coordinate of the player
+     * @param startY the starting y-coordinate of the player
+     */
 
     public Player(int startX, int startY) {
         this.x = startX;
@@ -32,6 +40,11 @@ public class Player {
         this.x = startX;
         this.y = startY;
     }
+    /**
+     * Updates the player's position based on the current movement flags.
+     * Also handles the animation of the player's movement.
+     * This method should be called once per frame.
+     */
 
     public void update() {
         if (isAnimating && frameCounter > 0) {
@@ -68,10 +81,22 @@ public class Player {
             resetMovementFlags();
         }
     }
+    /**
+     * Returns the x-coordinate of the player.
+     * @return the x-coordinate of the player
+     */
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, size, size);
     }
+
+    /**
+     * Draws the player on the screen.
+     * @param g the Graphics object to draw with
+     * @param xOffset the x-coordinate offset to apply
+     * @param yOffset the y-coordinate offset to apply
+     * @param scale the scale to draw the player at
+     */
 
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
         g.setColor(Color.BLUE);
@@ -81,9 +106,10 @@ public class Player {
                    (int) Math.round(size * scale));
     }
     /**
-     * Handels 
-     * @param keyCode key code of
+     * Handles key press events for the player.
+     * @param keyCode the key code of the key that was pressed
      */
+    
     public void keyPressed(int keyCode) {
         if (!isAnimating) {
             if (keyCode == KeyEvent.VK_UP) {
