@@ -3,6 +3,10 @@ package game;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+/**
+ * Handles key press events for the game.
+ * This class is responsible for processing key press events and passing them to the game logic.
+ */
 
 public class KeyHandler extends KeyAdapter {
     private GameWindow gameWindow;
@@ -10,7 +14,12 @@ public class KeyHandler extends KeyAdapter {
     public KeyHandler(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
     }
-
+    
+    /**
+     * Handles key press events.
+     * 
+     */
+    
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
