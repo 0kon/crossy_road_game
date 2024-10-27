@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-
+/**
+ * Represents the game logic for the game.
+ */
 public class Game {
     private Player player;
     private List<Obstacle> obstacles;
@@ -19,17 +21,27 @@ public class Game {
     private int currentPathStartColumn; // Track the start of the clear path for continuity
     private int pathWidth;               // Width of the clear path, which will vary
     private int score; 
+    private int highScore;
 
+    /**
+     * Constructs a new Game object.
+     * Initializes the player, obstacles, and random number generator.
+     * Sets the initial path width and starting column.
+     */
     public Game() {
         player = new Player(896, 640);
         obstacles = new ArrayList<>();
         random = new Random();
-        currentPathStartColumn = random.nextInt(14 - pathWidth)+1;
+        currentPathStartColumn = random.nextInt(14 - pathWidth) + 1;
         pathWidth = 3;         
         score = 0;  
 
     }
-
+    
+    /**
+     * Updates the game state.
+     * This method should be called once per frame.
+     */
     public void update() {
         player.update();
 
@@ -53,8 +65,10 @@ public class Game {
     }
 
 
-
-    // Helper method to check if all obstacles are done animating
+    /**
+     * Checks if all obstacles have finished animating.
+     * @return true if all obstacles have finished animating, false otherwise
+     */
     private boolean allObstaclesFinishedAnimating() {
         for (Obstacle obstacle : obstacles) {
             if (obstacle.isAnimating()) {
@@ -64,7 +78,11 @@ public class Game {
         return true;
     }
 
-    // Method to spawn a row of obstacles slightly above the top of the screen with a clear path
+    /**
+     * Spawns a row of obstacles with a clear path for the player to move through.
+     * The path width and starting column are randomly generated.
+     */
+
     private void spawnObstacles() {
         pathWidth = random.nextInt(7) + 2;
         score++;
@@ -94,9 +112,10 @@ public class Game {
      * Checks if the player collides with an obstacle.
      * @return true if the player collides with the obstacle, false otherwise
      */
+
     public boolean checkCollision() {
         Rectangle playerBounds = player.getBounds();
-
+        
         for (Obstacle obstacle : obstacles) {
             Rectangle obstacleBounds = obstacle.getBounds();
             if (playerBounds.intersects(obstacleBounds)) {
@@ -107,6 +126,13 @@ public class Game {
     }
 
     
+    /**
+     * Renders the game objects to the screen.
+     * @param g the graphics object to render to
+     * @param xOffset the x-coordinate offset
+     * @param yOffset the y-coordinate offset
+     * @param scale the scale to render the objects
+     */
 
     public void render(Graphics g, int xOffset, int yOffset, double scale) {
         player.draw(g, xOffset, yOffset, scale);
@@ -114,18 +140,34 @@ public class Game {
             obstacle.draw(g, xOffset, yOffset, scale);
         }
     }
+    /**
+     * Checks if the game is over.
+     * @return true if the game is over, false otherwise
+     */
 
     public boolean isGameOver() {
         return checkCollision();
     }
+    /**
+     * Checks if the player moved up.
+     * @return true if the player moved up, false otherwise
+     */
 
     public boolean playerMovedUp() {
         return rowGenerated;
     }
+    /**
+     * Gets the current score.
+     * @return the current score
+     */
 
     public int getScore() {
         return score;
     }
+    /**
+     * Handles key press events.
+     * @param keyCode the key code of the key that was pressed
+     */
 
     public void handleKeyPress(int keyCode) {
         player.keyPressed(keyCode);
@@ -140,11 +182,4 @@ public class Game {
         }
         
     }
-
-    // public void handleKeyRelease(int keyCode) {
-    //     player.keyReleased(keyCode);
-    //     for (Obstacle obstacle : obstacles) {
-    //         obstacle.keyReleased(keyCode);
-    //     }
-    // }
 }
