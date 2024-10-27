@@ -11,12 +11,16 @@ public class GameOverPanel extends BasePanel {
     private int finalScore;
     private JLabel scoreLabel;
     private JLabel textLabel;
+    private JButton restartButton;
+    private GameWindow gameWindow;
 
     /**
      * UI and letterbox are drawn.
      */
     public GameOverPanel(GameWindow gameWindow) {
         super(gameWindow);
+        this.gameWindow = gameWindow;
+        
         drawContent();
     }
 
@@ -36,10 +40,13 @@ public class GameOverPanel extends BasePanel {
 
         textLabel = new JLabel("Game Over", JLabel.CENTER);
         scoreLabel = new JLabel("Final score: " + finalScore, JLabel.CENTER);
+        restartButton = new JButton("Restart");
+
+        restartButton.addActionListener(e -> gameWindow.restartGame());
 
         add(textLabel, new ProportionalLayout.Constraints(640, 210, 640, 200, 80f)); 
         add(scoreLabel, new ProportionalLayout.Constraints(640, 300, 640, 200, 55f)); 
-
+        add(restartButton, new ProportionalLayout.Constraints(640, 500, 640, 150, 55f));
         revalidate();
         repaint();
     }

@@ -53,6 +53,15 @@ public class GameWindow extends JFrame {
         requestFocusInWindow();
     }
 
+    public void restartGame() {
+        gamePanel.restartGame();
+        System.out.println("comment");
+        setContentPane(startPanel);
+        revalidate();
+        repaint();
+    }
+
+
 
     private void setCurrentPanel(BasePanel panel) {
         if (currentPanel != null) {

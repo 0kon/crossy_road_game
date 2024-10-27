@@ -28,6 +28,11 @@ public class Player {
         this.y = startY;
     }
 
+    public void reset(int startX, int startY) {
+        this.x = startX;
+        this.y = startY;
+    }
+
     public void update() {
         if (isAnimating && frameCounter > 0) {
             frameCounter -= 1;

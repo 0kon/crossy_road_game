@@ -27,6 +27,7 @@ public class GamePanel extends BasePanel implements ActionListener {
     private final int frameTime = 1000 / fps;  // Time per frame in milliseconds
     private JLabel scoreLabel; // Score display label
     private int lastScore = 0;
+    private boolean componentsInitialized = false; // Track initialization
 
     /**
      * Initilizes gameTImer game class sets countdown value.
@@ -40,9 +41,15 @@ public class GamePanel extends BasePanel implements ActionListener {
         this.gameTimer = new Timer(frameTime, this);
         baseCountdown = 50;
         countdown = baseCountdown;
+        initializeComponents();
     }
     
     private void initializeComponents() {
+        if (componentsInitialized) {
+            return;
+        } else {
+            componentsInitialized = true;
+        }
         // Initialize and add countdownLabel
         countdown = baseCountdown;
         countdownLabel = new JLabel("Time remaining: " + (countdown / 10.0), JLabel.CENTER);
@@ -161,7 +168,7 @@ public class GamePanel extends BasePanel implements ActionListener {
      * Used to start the game.
      */
     public void startGame() {
-        initializeComponents();
+        
         gameTimer.start();
         drawContent();
         countdownTimer.start();
@@ -174,6 +181,27 @@ public class GamePanel extends BasePanel implements ActionListener {
         countdownTimer.stop();    
         gameWindow.showGameOverPanel(game.getScore());
     }
+
+    public void restartGame() {
+        countdown = 10;
+        game.resetGame();
+
+        countdown = baseCountdown;
+        lastScore = 0;
+        
+        // Reset UI elements without re-adding components
+        countdownLabel.setText("Time remaining: " + (countdown / 10.0));
+        scoreLabel.setText("Score: " + lastScore);
+        
+        // Restart timers to ensure a fresh start
+        gameTimer.stop();
+        countdownTimer.stop();
+
+    
+        // Refresh the content to reflect reset state
+        drawContent();
+    }
+    
 
     public Game getGame() {
         return game;

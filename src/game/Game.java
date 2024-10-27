@@ -24,7 +24,7 @@ public class Game {
         player = new Player(896, 640);
         obstacles = new ArrayList<>();
         random = new Random();
-        currentPathStartColumn = random.nextInt(14 - pathWidth)+1;
+        currentPathStartColumn = random.nextInt(14 - pathWidth) + 1;
         pathWidth = 3;         
         score = 0;  
 
@@ -50,6 +50,15 @@ public class Game {
             spawnObstacles();
             rowGenerated = false; // Set to false to allow UP key to trigger again
         }
+    }
+
+    public void resetGame() {
+        player.reset(896, 640);
+        obstacles.clear();             
+        score = 0;                    
+        pathWidth = 3;                
+        rowGenerated = false;          
+        currentPathStartColumn = random.nextInt(14 - pathWidth) + 1; // Reset path start
     }
 
 
