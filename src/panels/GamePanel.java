@@ -12,50 +12,33 @@ import utils.ProportionalLayout;
 public class GamePanel extends BasePanel implements ActionListener {
     private Game game;
     private GameWindow gameWindow;
-    private int width;
-    private int height;
+
     private Timer gameTimer;  // Timer for game loop
     private Timer countdownTimer;
-    private JButton finishRunButton;
+    // private JButton finishRunButton;
 
-    private final int FPS = 120;  // Frames per second
+    private final int fps = 120;  // Frames per second
     private int baseCountdown; // Start countdown from 5
     private int countdown;
     private JLabel countdownLabel;
-    private final int frameTime = 1000 / FPS;  // Time per frame in milliseconds
+    private final int frameTime = 1000 / fps;  // Time per frame in milliseconds
     private JLabel scoreLabel; // Score display label
     private int lastScore = 0;
 
+    /**
+     * Initilizes gameTImer game class sets countdown value.
+     * @param gameWindow gameWindow class
+     */
     public GamePanel(GameWindow gameWindow) {
         super(gameWindow);
         this.gameWindow = gameWindow;
-        this.game = new Game();  // Initialize the game logic
+        this.game = new Game();  
 
         this.gameTimer = new Timer(frameTime, this);
         baseCountdown = 50;
         countdown = baseCountdown;
-
-
-    }
-
-    private void endGame() {
-        gameTimer.stop();        // Stop the main game loop
-        countdownTimer.stop();    // Stop the countdown timer
-        gameWindow.showGameOverPanel(game.getScore()); // Show Game Over screen with final score
-    }
-
-    public void startGame() {
-        initializeComponents();
-        gameTimer.start();
-        drawContent();
-        countdownTimer.start();
-        
-        
     }
     
-        
-    
-
     private void initializeComponents() {
         // Initialize and add countdownLabel
         countdown = baseCountdown;
@@ -133,7 +116,7 @@ public class GamePanel extends BasePanel implements ActionListener {
 
         if (game.isGameOver()) {
             gameWindow.showGameOverPanel(game.getScore());
-            stopGame(); // Stop the game loop
+            endGame();; // Stop the game loop
             return;
         }
         // Check if the score has changed
@@ -164,18 +147,28 @@ public class GamePanel extends BasePanel implements ActionListener {
         double scaleHeight = (double) panelHeight / baseHeight;
         double scale = Math.min(scaleWidth, scaleHeight);  // Uniform scale for aspect ratio
 
-        int xOffset = (panelWidth - (int)(baseWidth * scale)) / 2;
-        int yOffset = (panelHeight - (int)(baseHeight * scale)) / 2;
+        int xOffset = (panelWidth - (int) (baseWidth * scale)) / 2;
+        int yOffset = (panelHeight - (int) (baseHeight * scale)) / 2;
 
         
         game.render(g, xOffset, yOffset, scale);  // Delegate rendering to the game logic
         super.paintComponent(g);
 
     }
-    
-    // Stop the game loop (stops the timer)
-    public void stopGame() {
-        gameTimer.stop();
+
+    public void startGame() {
+        initializeComponents();
+        gameTimer.start();
+        drawContent();
+        countdownTimer.start();
+        
+        
+    }
+
+    private void endGame() {
+        gameTimer.stop();        
+        countdownTimer.stop();    
+        gameWindow.showGameOverPanel(game.getScore());
     }
 
     public Game getGame() {
