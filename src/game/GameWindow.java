@@ -21,7 +21,7 @@ public class GameWindow extends JFrame {
     private BasePanel currentPanel;
     
     // Store the window's normal size and state before going full screen
-    private boolean isFullscreen = false;
+    public boolean isFullscreen = false;
     private Rectangle windowedBounds;
 
     public GameWindow() {
@@ -46,7 +46,6 @@ public class GameWindow extends JFrame {
         System.out.println(gameState);
 
         addKeyListener(new KeyHandler(this));
-
 
         // Set focus to allow key input
         
@@ -97,7 +96,8 @@ public class GameWindow extends JFrame {
     }
 
     // Show the game over panel
-    public void showGameOverPanel() {
+    public void showGameOverPanel(int finalScore) {
+        gameOverPanel.setFinalScore(finalScore);
         gameState = GameState.GAME_OVER;
         setCurrentPanel(gameOverPanel);
     }

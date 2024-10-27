@@ -3,12 +3,13 @@ package game;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.Rectangle;
 
 public class Player {
     private int x;
     private int y;
-    private int size = 128;
-    private int speed = 128;
+    private int size = 100;
+    private int speed;
     private boolean movingUp;
     private boolean movingDown;
     private boolean movingLeft;
@@ -28,12 +29,6 @@ public class Player {
             frameCounter -= 1;
             speed = sequence[frameCounter];
 
-            // if (movingUp) {
-            //     y -= speed;
-            // }
-            // if (movingDown) {
-            //     y += speed;
-            // }
             if (movingLeft) {
                 x -= speed;
             }
@@ -65,10 +60,16 @@ public class Player {
         }
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, size, size);
+    }
+
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
         g.setColor(Color.BLUE);
-        g.fillRect((int) (x * scale) + xOffset, (int) (y * scale) + yOffset,
-                (int) (size * scale), (int) (size * scale));
+        g.fillRect((int) (x * scale + xOffset + 14  * scale), 
+                   (int) (y * scale + yOffset + 14 * scale),
+                   (int) Math.round(size * scale),
+                   (int) Math.round(size * scale));
     }
 
     public void keyPressed(int keyCode) {

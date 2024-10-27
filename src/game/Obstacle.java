@@ -3,6 +3,7 @@ package game;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.Rectangle;
 
 public class Obstacle {
     private int x;
@@ -32,6 +33,11 @@ public class Obstacle {
         return isAnimating;
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, size, size);
+    }
+    
+
     public void update() {
         if (isAnimating && frameCounter > 0) {
             frameCounter -= 1;
@@ -53,7 +59,7 @@ public class Obstacle {
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
         g.setColor(Color.RED);
         g.fillRect((int) (x * scale) + xOffset, (int) (y * scale) + yOffset,
-                (int) ((size * scale) + 1), (int) ((size * scale) + 1));
+                (int) Math.ceil((size * scale) + 1), (int) Math.ceil((size * scale) + 1));
     }
 
     public void keyPressed(int keyCode) {

@@ -8,22 +8,32 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.awt.Rectangle;
+
 
 public class Game {
     private Player player;
     private List<Obstacle> obstacles;
-    private int fieldEndX;
-    private int screenHeight;
+    // private int fieldEndX;
+    // private int screenHeight;
     private int rowHeight = 128;      // Height of each row for obstacle placement
     private Random random;
     private boolean rowGenerated = false;
+    private int currentPathStartColumn; // Track the start of the clear path for continuity
+    private int pathWidth;               // Width of the clear path, which will vary
+    private int score; 
+    private boolean playerMoved = false;
 
     public Game() {
         player = new Player(896, 640);
         obstacles = new ArrayList<>();
-        fieldEndX = 1920;
-        screenHeight = 1080; // Set to the height of your game screen
+        // fieldEndX = 1920;
+        // screenHeight = 1080;
         random = new Random();
+        currentPathStartColumn = random.nextInt(14 - pathWidth)+1;
+        pathWidth = 3;              // Initial path width
+        score = 0;  
+         // Initial path position
     }
 
     public void update() {
@@ -46,7 +56,14 @@ public class Game {
             spawnObstacles();
             rowGenerated = false; // Reset to allow UP key to trigger again
         }
+        if (checkCollision()) {
+            System.out.println("coli");
+        }
+
+        
     }
+
+
 
     // Helper method to check if all obstacles are done animating
     private boolean allObstaclesFinishedAnimating() {
@@ -60,23 +77,42 @@ public class Game {
 
     // Method to spawn a row of obstacles slightly above the top of the screen with a clear path
     private void spawnObstacles() {
-        int numObstacles = random.nextInt(13) + 1; // Random number of obstacles (1 to 13)
-        int pathX = random.nextInt(15) * 128;      // Reserved path position
-
-        Set<Integer> usedPositions = new HashSet<>();
-        usedPositions.add(pathX); // Ensure pathX remains clear
-
-        for (int i = 0; i < numObstacles; i++) {
-            int randomX;
-            do {
-                randomX = random.nextInt(15) * 128;
-            } while (usedPositions.contains(randomX));
-
-            usedPositions.add(randomX);
-            Obstacle newObstacle = new Obstacle(randomX, -128); // Place obstacles slightly above the screen
-            obstacles.add(newObstacle);
+        pathWidth = random.nextInt(7) + 2;
+        score++;
+        System.out.println(score);
+        // Adjust current path start to slightly move left, right, or stay the same within bounds
+        int direction = random.nextInt(3) - 1; // -1 (left), 0 (same), 1 (right)
+        currentPathStartColumn = Math.max(1, Math.min(currentPathStartColumn + direction, 14 - pathWidth));
+    
+        // Reserve the columns for the clear path
+        Set<Integer> pathColumns = new HashSet<>();
+        for (int i = currentPathStartColumn; i < currentPathStartColumn + pathWidth; i++) {
+            pathColumns.add(i);
+        }
+    
+        // Generate obstacles in columns not part of the path
+        for (int col = 0; col < 15; col++) {
+            if (!pathColumns.contains(col)) {
+                int obstacleX = col * 128;
+                Obstacle newObstacle = new Obstacle(obstacleX, -128); // Place obstacles above the screen
+                obstacles.add(newObstacle);
+            }
         }
     }
+
+    public boolean checkCollision() {
+        Rectangle playerBounds = player.getBounds();
+
+        for (Obstacle obstacle : obstacles) {
+            Rectangle obstacleBounds = obstacle.getBounds();
+            if (playerBounds.intersects(obstacleBounds)) {
+                return true; 
+            }
+        }
+        return false; // No collision
+    }
+
+    
 
     public void render(Graphics g, int xOffset, int yOffset, double scale) {
         player.draw(g, xOffset, yOffset, scale);
@@ -85,16 +121,30 @@ public class Game {
         }
     }
 
+    public boolean isGameOver() {
+        return checkCollision();
+    }
+
+    public boolean playerMovedUp() {
+        return rowGenerated;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     public void handleKeyPress(int keyCode) {
         player.keyPressed(keyCode);
+        
 
         // Only generate a new row if UP arrow is pressed and no row is currently animating
         if (keyCode == KeyEvent.VK_UP && !rowGenerated) {
             for (Obstacle obstacle : obstacles) {
-                obstacle.keyPressed(keyCode); // Trigger downward animation for all obstacles
+                obstacle.keyPressed(keyCode); 
             }
             rowGenerated = true; // Set flag to indicate a row is being animated
         }
+        
     }
 
     public void handleKeyRelease(int keyCode) {
