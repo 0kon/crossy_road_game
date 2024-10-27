@@ -10,6 +10,10 @@ import panels.StartPanel;
 
 
 
+/**
+ * The GameWindow class represents the main window of the game.
+ * It handles the different panels and the game state transitions.
+ */
 public class GameWindow extends JFrame {
     private GameState gameState = GameState.MENU;
     private StartPanel startPanel;
@@ -22,8 +26,13 @@ public class GameWindow extends JFrame {
     public boolean isFullscreen = false;
     private Rectangle windowedBounds;
 
+    /**
+     * Constructor to create a new GameWindow.
+     * Initializes the window properties and panels.
+     */
+
     public GameWindow() {
-        setTitle("Game");
+        setTitle("Game Window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set initial window size
@@ -53,7 +62,10 @@ public class GameWindow extends JFrame {
         requestFocusInWindow();
     }
 
-
+    /**
+     * Sets the current panel to display in the window.
+     * @param panel the panel to display
+     */
     private void setCurrentPanel(BasePanel panel) {
         if (currentPanel != null) {
             remove(currentPanel);
@@ -67,7 +79,11 @@ public class GameWindow extends JFrame {
         repaint();
     }
 
-    // Method to toggle between full screen (borderless) and normal windowed mode
+    /**
+     * Toggles the window between full-screen and windowed mode.
+     * If the window is currently in full-screen mode, it will be restored to windowed mode.
+     */
+
     public void toggleFullScreen() {
         if (!isFullscreen) {
             // Enter full-screen borderless mode
@@ -86,35 +102,54 @@ public class GameWindow extends JFrame {
         isFullscreen = !isFullscreen; // Toggle the full-screen state
     }
 
-    // Show the game panel (called when the game starts)
+    /**
+     * Shows the game panel and starts the game logic.
+     * This method should be called when the game is started.
+     */
     public void showGamePanel() {
         setCurrentPanel(gamePanel);
         gameState = GameState.IN_PLAY;
         gamePanel.startGame(); // Start the game logic
     }
 
-    // Show the game over panel
+    /**
+     * Shows the game over panel with the final score.
+     * @param finalScore the final score to display
+     */
     public void showGameOverPanel(int finalScore) {
         gameOverPanel.setFinalScore(finalScore);
         gameState = GameState.GAME_OVER;
         setCurrentPanel(gameOverPanel);
     }
+    /**
+     * Shows the start panel with the main menu.
+     */
 
-    // // Show the start panel
     public void showStartPanel() {
         gameState = GameState.MENU;
         setCurrentPanel(startPanel);
     }
+    /**
+     * Shows the options panel with the settings.
+     */
 
     public void showOptionsPanel() {
         gameState = GameState.OPTIONS;
         setCurrentPanel(optionsPanel);
     }
-
+    /**
+     * Returns the current game panel.
+     * @return the game panel
+     */
+    
     public GamePanel getGamePanel() {
         return gamePanel;
     }
-
+    
+    /**
+     * Returns the current game state.
+     * @return the game state
+     */
     public GameState getGameState() {
         return gameState;
     }
