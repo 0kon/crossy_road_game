@@ -57,7 +57,7 @@ public class Obstacle {
     }
 
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
-        g.setColor(Color.RED);
+        g.setColor(Color.GRAY);
         g.fillRect((int) (x * scale) + xOffset, (int) (y * scale) + yOffset,
                 (int) Math.ceil((size * scale) + 1), (int) Math.ceil((size * scale) + 1));
     }

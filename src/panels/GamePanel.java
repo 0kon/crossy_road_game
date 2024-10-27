@@ -157,7 +157,7 @@ public class GamePanel extends BasePanel implements ActionListener {
     // Paint method: handles drawing the game
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        
         // Always call the superclass method first
         int panelWidth = getWidth();
         int panelHeight = getHeight();
@@ -172,7 +172,7 @@ public class GamePanel extends BasePanel implements ActionListener {
 
         
         game.render(g, xOffset, yOffset, scale);  // Delegate rendering to the game logic
-
+        super.paintComponent(g);
 
     }
     
