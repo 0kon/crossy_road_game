@@ -24,8 +24,6 @@ public class KeyHandler extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        System.out.println(gameWindow.getGameState());
-
         // Handle F11 key for fullscreen toggle
         if (key == KeyEvent.VK_F11) {
             gameWindow.toggleFullScreen();
@@ -40,7 +38,6 @@ public class KeyHandler extends KeyAdapter {
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_RIGHT:
                     // Pass arrow key to the game logic
-                    // System.out.println("Arrow key pressed: " + key);
                     gameWindow.getGamePanel().getGame().handleKeyPress(key);
                     break;
                 default:

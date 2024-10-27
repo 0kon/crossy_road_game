@@ -45,7 +45,6 @@ public class Player {
      * Also handles the animation of the player's movement.
      * This method should be called once per frame.
      */
-
     public void update() {
         if (isAnimating && frameCounter > 0) {
             frameCounter -= 1;
@@ -109,7 +108,6 @@ public class Player {
      * Handles key press events for the player.
      * @param keyCode the key code of the key that was pressed
      */
-    
     public void keyPressed(int keyCode) {
         if (!isAnimating) {
             if (keyCode == KeyEvent.VK_UP) {

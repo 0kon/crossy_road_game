@@ -117,7 +117,9 @@ public class GamePanel extends BasePanel implements ActionListener {
                 break;
 
         }
-            
+        countdown = baseCountdown;
+        countdownLabel.setText("Time remaining: " + (countdown / 10.0));
+        countdownTimer.stop();    
     }
 
 
@@ -142,26 +144,25 @@ public class GamePanel extends BasePanel implements ActionListener {
         repaint(); 
     }
 
-    // Paint method: handles drawing the game
+    /** 
+     *  Method handles drawing the game.
+    */
     @Override
     protected void paintComponent(Graphics g) {
-        
-        // Always call the superclass method first
         int panelWidth = getWidth();
         int panelHeight = getHeight();
 
         // Calculate scaling and offsets
         double scaleWidth = (double) panelWidth / baseWidth;
         double scaleHeight = (double) panelHeight / baseHeight;
-        double scale = Math.min(scaleWidth, scaleHeight);  // Uniform scale for aspect ratio
+        double scale = Math.min(scaleWidth, scaleHeight);
 
         int xOffset = (panelWidth - (int) (baseWidth * scale)) / 2;
         int yOffset = (panelHeight - (int) (baseHeight * scale)) / 2;
 
         
-        game.render(g, xOffset, yOffset, scale);  // Delegate rendering to the game logic
+        game.render(g, xOffset, yOffset, scale);  
         super.paintComponent(g);
-
     }
 
     /**
@@ -182,6 +183,9 @@ public class GamePanel extends BasePanel implements ActionListener {
         gameWindow.showGameOverPanel(game.getScore());
     }
 
+    /**
+     * Method restarts the game.
+     */
     public void restartGame() {
         countdown = 10;
         game.resetGame();
@@ -189,16 +193,12 @@ public class GamePanel extends BasePanel implements ActionListener {
         countdown = baseCountdown;
         lastScore = 0;
         
-        // Reset UI elements without re-adding components
         countdownLabel.setText("Time remaining: " + (countdown / 10.0));
         scoreLabel.setText("Score: " + lastScore);
         
-        // Restart timers to ensure a fresh start
         gameTimer.stop();
         countdownTimer.stop();
 
-    
-        // Refresh the content to reflect reset state
         drawContent();
     }
     

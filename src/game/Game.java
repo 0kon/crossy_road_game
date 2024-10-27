@@ -21,7 +21,6 @@ public class Game {
     private int currentPathStartColumn; // Track the start of the clear path for continuity
     private int pathWidth;               // Width of the clear path, which will vary
     private int score; 
-    private int highScore;
 
     /**
      * Constructs a new Game object.
@@ -64,13 +63,16 @@ public class Game {
         }
     }
 
+    /**
+     * Resets the game class and calls to reset player.
+     */
     public void resetGame() {
         player.reset(896, 640);
         obstacles.clear();             
         score = 0;                    
         pathWidth = 3;                
         rowGenerated = false;          
-        currentPathStartColumn = random.nextInt(14 - pathWidth) + 1; // Reset path start
+        currentPathStartColumn = random.nextInt(14 - pathWidth) + 1; 
     }
 
 
@@ -95,7 +97,7 @@ public class Game {
     private void spawnObstacles() {
         pathWidth = random.nextInt(7) + 2;
         score++;
-        System.out.println(score);
+        
         // Adjust current path start to slightly move left, right, or stay the same within bounds
         int direction = random.nextInt(3) - 1; // -1 (left), 0 (same), 1 (right)
         currentPathStartColumn = Math.max(1, 

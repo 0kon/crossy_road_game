@@ -50,7 +50,6 @@ public class GameWindow extends JFrame {
 
         // Show the start panel initially
         showStartPanel();
-        System.out.println(gameState);
 
         addKeyListener(new KeyHandler(this));
 
@@ -62,9 +61,11 @@ public class GameWindow extends JFrame {
         requestFocusInWindow();
     }
 
+    /**
+     * Restarts game. Changes panel to StartPanel.
+     */
     public void restartGame() {
         gamePanel.restartGame();
-        System.out.println("comment");
         setContentPane(startPanel);
         revalidate();
         repaint();

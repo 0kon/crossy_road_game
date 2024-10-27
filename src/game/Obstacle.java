@@ -51,7 +51,6 @@ public class Obstacle {
      * Also handles the animation of the obstacle's movement.
      * This method should be called once per frame.
      */
-
     public void update() {
         if (isAnimating && frameCounter > 0) {
             frameCounter -= 1;
@@ -79,7 +78,7 @@ public class Obstacle {
      */
 
     public void draw(Graphics g, int xOffset, int yOffset, double scale) {
-        g.setColor(Color.RED);
+        g.setColor(Color.GRAY);
         g.fillRect((int) (x * scale) + xOffset, (int) (y * scale) + yOffset,
                 (int) Math.ceil((size * scale) + 1), (int) Math.ceil((size * scale) + 1));
     }
@@ -98,6 +97,6 @@ public class Obstacle {
     }
 
     public void keyReleased(int keyCode) {
-        // No need to handle key release, animation continues until complete
+        // No need to handle key release
     }
 }

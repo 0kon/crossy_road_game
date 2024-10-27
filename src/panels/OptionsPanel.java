@@ -5,7 +5,9 @@ import javax.swing.*;
 import utils.ProportionalLayout;
 
 
-
+/**
+ * The panel displayed when changing options.
+ */
 public class OptionsPanel extends BasePanel {
 
 
