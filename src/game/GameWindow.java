@@ -23,7 +23,7 @@ public class GameWindow extends JFrame {
     private Rectangle windowedBounds;
 
     public GameWindow() {
-        setTitle("Game Window");
+        setTitle("Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set initial window size
